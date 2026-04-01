@@ -10,6 +10,7 @@ export class LoginPage {
   readonly loginButton: Locator;
   readonly lostPasswordButton: Locator;
   readonly pageHeader: Locator;
+  readonly loginFormDiv: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -18,6 +19,7 @@ export class LoginPage {
     this.loginButton = page.locator('[type="submit"]');
     this.lostPasswordButton = page.locator("#forget_password");
     this.pageHeader = page.locator(".form-title");
+    this.loginFormDiv = page.locator(".content-login");
   }
 
   // Při vytváření metod doporučím přístup začít s atomickými (malými) metodami s jedním krokem a pak vytvářet sdružující metody
@@ -68,5 +70,9 @@ export class LoginPage {
       headerText,
     );
     return this;
+  }
+
+  async assertVisualLoginForm() {
+    await expect(this.loginFormDiv).toHaveScreenshot("login_form.png");
   }
 }
